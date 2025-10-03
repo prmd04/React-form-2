@@ -39,10 +39,10 @@ form {
   width: 400px;
   height: 35px;
   border-radius: 5px;
-  border: 2px solid #ccc; /* default border */
+  border: 2px solid #ccc;
   padding: 5px 10px;
   outline: none;
-  transition: border 0.3s; /* smooth color change */
+  transition: border 0.3s;
 }
 
 .error-message {

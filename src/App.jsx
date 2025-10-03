@@ -8,9 +8,11 @@ function App() {
     watch,
     formState: { errors },
     reset,
-  } = useForm({ mode: "onChange" }); 
+  } = useForm({ mode: "onChange" });
 
-  const password = watch("password");
+  const emailValue = watch("email");
+  const passwordValue = watch("password");
+  const confirmPasswordValue = watch("confirmPassword");
 
   const onSubmit = (data) => {
     console.log(data);
@@ -18,8 +20,8 @@ function App() {
     reset();
   };
 
-  const getBorderColor = (fieldName) => {
-    return errors[fieldName] ? "red" : "green";
+  const getBorderColor = (fieldName, value) => {
+    return errors[fieldName] ? "red" : value ? "green" : "#ccc";
   };
 
   return (
@@ -36,7 +38,9 @@ function App() {
                 message: "Invalid email format",
               },
             })}
-            style={{ borderColor: getBorderColor("email") }}
+            style={{
+              borderColor: getBorderColor("email", emailValue),
+            }}
           />
           {errors.email && (
             <p className="error-message">{errors.email.message}</p>
@@ -54,7 +58,9 @@ function App() {
                 message: "Password must be at least 6 characters",
               },
             })}
-            style={{ borderColor: getBorderColor("password") }}
+            style={{
+              borderColor: getBorderColor("password", passwordValue),
+            }}
           />
           {errors.password && (
             <p className="error-message">{errors.password.message}</p>
@@ -68,9 +74,14 @@ function App() {
             {...register("confirmPassword", {
               required: "Please confirm your password",
               validate: (value) =>
-                value === password || "Passwords do not match",
+                value === passwordValue || "Passwords do not match",
             })}
-            style={{ borderColor: getBorderColor("confirmPassword") }}
+            style={{
+              borderColor: getBorderColor(
+                "confirmPassword",
+                confirmPasswordValue
+              ),
+            }}
           />
           {errors.confirmPassword && (
             <p className="error-message">{errors.confirmPassword.message}</p>
